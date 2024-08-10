@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(153, 153, 153);
+    box-sizing: border-box;
+}
+
+.array-container {
+    position: absolute;
+    left: 5vmin;
+    right: 5vmin;
+    top: 5vmin;
+    bottom: 5vmin;
+    margin: 0 auto;
+}
+  
+  .array-bar {
+    width: 3vmin;
+    display: inline-block;
+    margin: 0 1px;
+}
+
+button {
+    background-color: rgb(108, 113, 126);
+    color: white;
+    padding: 2vmin;
+    margin: 0 3px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color:  rgb(81, 92, 121);
+    color: rgb(159, 189, 214);
+    transition: ease-in-out 0.5s;
+}
+
+.button {
+    margin-top: 5vmin;
+}
+
+
+
+@media (max-width: 600px) {
+    .array-bar {
+        width: 1vmin;
+    }
+
+    .button {
+        display: flex;
+        flex-direction: column;
+    }
+}
