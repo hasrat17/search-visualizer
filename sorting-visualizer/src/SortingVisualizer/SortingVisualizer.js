@@ -3,7 +3,7 @@ import { getMergeSortAnimations, getBubbleSortAnimations, getHeapSortAnimations,
 import './SortingVisualizer.css';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 200;
+const ANIMATION_SPEED_MS = 50;
 
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 40;
