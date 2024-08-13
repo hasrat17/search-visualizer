@@ -20,14 +20,7 @@ function mergeSortHelper(
     doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animations);
 }
 
-function doMerge(
-    mainArray,
-    startIdx,
-    middleIdx,
-    endIdx,
-    auxiliaryArray,
-    animations,
-) {
+function doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray, animations,) {
     let k = startIdx;
     let i = startIdx;
     let j = middleIdx + 1;
@@ -51,26 +44,14 @@ function doMerge(
         }
     }
     while (i <= middleIdx) {
-        // These are the values that we're comparing; we push them once
-        // to change their color.
         animations.push([i, i]);
-        // These are the values that we're comparing; we push them a second
-        // time to revert their color.
         animations.push([i, i]);
-        // We overwrite the value at index k in the original array with the
-        // value at index i in the auxiliary array.
         animations.push([k, auxiliaryArray[i]]);
         mainArray[k++] = auxiliaryArray[i++];
     }
     while (j <= endIdx) {
-        // These are the values that we're comparing; we push them once
-        // to change their color.
         animations.push([j, j]);
-        // These are the values that we're comparing; we push them a second
-        // time to revert their color.
         animations.push([j, j]);
-        // We overwrite the value at index k in the original array with the
-        // value at index j in the auxiliary array.
         animations.push([k, auxiliaryArray[j]]);
         mainArray[k++] = auxiliaryArray[j++];
     }
@@ -113,7 +94,7 @@ function bubbleSortHelper(array, animations) {
                 animations.push([j + 1, array[j + 1]]);
             }
         }
-        if (!swapped) break; // If no swap happened in the inner loop, the array is sorted.
+        if (!swapped) break; 
     }
 }
 
@@ -132,41 +113,38 @@ export function getHeapSortAnimations(array) {
 function heapSortHelper(array, animations) {
     const n = array.length;
 
-    // Build heap (rearrange array)
+    
     for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
         heapify(array, n, i, animations);
     }
 
-    // One by one extract an element from heap
+    
     for (let i = n - 1; i > 0; i--) {
-        // Move current root to end
+        
         animations.push([0, i]);
         animations.push([0, i]);
         animations.push([0, array[i]]);
         animations.push([i, array[0]]);
         swap(array, 0, i);
 
-        // Call max heapify on the reduced heap
+        
         heapify(array, i, 0, animations);
     }
 }
 
 function heapify(array, n, i, animations) {
-    let largest = i; // Initialize largest as root
-    const left = 2 * i + 1; // left = 2*i + 1
-    const right = 2 * i + 2; // right = 2*i + 2
+    let largest = i; 
+    const left = 2 * i + 1;
+    const right = 2 * i + 2; 
 
-    // If left child is larger than root
     if (left < n && array[left] > array[largest]) {
         largest = left;
     }
 
-    // If right child is larger than largest so far
     if (right < n && array[right] > array[largest]) {
         largest = right;
     }
 
-    // If largest is not root
     if (largest !== i) {
         animations.push([i, largest]);
         animations.push([i, largest]);
@@ -174,7 +152,6 @@ function heapify(array, n, i, animations) {
         animations.push([largest, array[i]]);
         swap(array, i, largest);
 
-        // Recursively heapify the affected sub-tree
         heapify(array, n, largest, animations);
     }
 }
@@ -198,10 +175,9 @@ export function getSelectionSortAnimations(array) {
     for (let i = 0; i < array.length - 1; i++) {
         let minIdx = i;
         for (let j = i + 1; j < array.length; j++) {
-            // Push the indices to change their color for comparison.
-            animations.push([minIdx, j, 0]); // adding zero so can check its length and take for adding color
-            // Push the indices to revert their color.
-            animations.push([minIdx, j, 1]); // & to remove color
+        
+            animations.push([minIdx, j, 0]); 
+            animations.push([minIdx, j, 1]); 
 
             if (array[j] < array[minIdx]) {
                 minIdx = j;
@@ -209,12 +185,10 @@ export function getSelectionSortAnimations(array) {
         }
 
         if (minIdx !== i) {
-            // Swap the elements and push the changes to the animations array.
             animations.push([i, array[minIdx]]);
             animations.push([minIdx, array[i]]);
             [array[i], array[minIdx]] = [array[minIdx], array[i]];
         } else {
-            // No swap needed, push the same value to maintain the animation sequence.
             animations.push([i, array[i]]);
             animations.push([minIdx, array[minIdx]]);
         }
@@ -243,19 +217,16 @@ function doPartition(mainArray, startIdx, endIdx, animations) {
     const pivotValue = mainArray[endIdx];
     let pivotIdx = startIdx;
     for (let i = startIdx; i < endIdx; i++) {
-        // Compare the current element with the pivot.
-        animations.push([i, endIdx, 0]); // to add color
-        // Revert the color after comparison.
-        animations.push([i, endIdx, 1]); // to remove color
+        
+        animations.push([i, endIdx, 0]); 
+        animations.push([i, endIdx, 1]); 
         if (mainArray[i] <= pivotValue) {
-            // Swap elements.
             animations.push([i, mainArray[pivotIdx]]);
             animations.push([pivotIdx, mainArray[i]]);
             [mainArray[i], mainArray[pivotIdx]] = [mainArray[pivotIdx], mainArray[i]];
             pivotIdx++;
         }
     }
-    // Swap the pivot element to its correct sorted position.
     animations.push([pivotIdx, mainArray[endIdx]]);
     animations.push([endIdx, mainArray[pivotIdx]]);
     [mainArray[pivotIdx], mainArray[endIdx]] = [mainArray[endIdx], mainArray[pivotIdx]];
